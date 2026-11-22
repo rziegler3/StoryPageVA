@@ -1,1 +1,9 @@
 ﻿@page "/"
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+
+@code {
+    protected override void OnInitialized()
+    {
+        NavigationManager.NavigateTo("/Story/1", replace: true);
+    }
+}

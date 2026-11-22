@@ -1,0 +1,35 @@
+<main class="story-overview">
+    @if (StoryData is { } story)
+    {
+        <article class="story-overview__card">
+            <img class="story-overview__picture" src="@story.Picture" alt="Poster for @story.Title" />
+            <div class="story-overview__details">
+                <h1>@story.Title</h1>
+                <p>@story.Description</p>
+            </div>
+        </article>
+        @if (!string.IsNullOrWhiteSpace(story.Text))
+        {
+            <button class="story-overview__scroll-hint" type="button" @onclick="OnReadStory">
+                Scroll down to read the full story
+            </button>
+        }
+    }
+    else
+    {
+        <section class="story-overview__card story-overview__empty" role="status">
+            No story data available for story @StoryId.
+        </section>
+    }
+</main>
+
+@code {
+    [Parameter]
+    public long StoryId { get; set; }
+
+    [Parameter]
+    public StoryModel? StoryData { get; set; }
+
+    [Parameter]
+    public EventCallback OnReadStory { get; set; }
+}

@@ -1,0 +1,107 @@
+.story-detail {
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: clamp(3rem, 10vmin, 6rem);
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+.story-detail__content {
+    max-width: 97.5ch;
+    margin: 0 auto;
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+}
+
+.story-detail__content ::deep h1,
+.story-detail__content ::deep h2,
+.story-detail__content ::deep h3,
+.story-detail__content ::deep h4,
+.story-detail__content ::deep h5,
+.story-detail__content ::deep h6 {
+    margin: 1.5em 0 0.5em;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.story-detail__content ::deep h1 { font-size: 2rem; }
+.story-detail__content ::deep h2 { font-size: 1.5rem; }
+.story-detail__content ::deep h3 { font-size: 1.25rem; }
+
+.story-detail__content ::deep > :first-child {
+    margin-top: 0;
+}
+
+.story-detail__content ::deep p,
+.story-detail__content ::deep ul,
+.story-detail__content ::deep ol,
+.story-detail__content ::deep pre,
+.story-detail__content ::deep blockquote {
+    margin-bottom: 1.25rem;
+}
+
+.story-detail__content ::deep ul,
+.story-detail__content ::deep ol {
+    padding-left: 1.5rem;
+}
+
+.story-detail__content ::deep ul { list-style: disc; }
+.story-detail__content ::deep ol { list-style: decimal; }
+
+.story-detail__content ::deep blockquote {
+    margin-left: 0;
+    border-left: 3px solid #888;
+    padding-left: 1rem;
+    color: #ccc;
+}
+
+.story-detail__content ::deep a {
+    color: #90caf9;
+    text-decoration: underline;
+}
+
+.story-detail__content ::deep pre,
+.story-detail__content ::deep code {
+    background: #121212;
+    border-radius: 0.25rem;
+    font-family: Consolas, monospace;
+}
+
+.story-detail__content ::deep code {
+    padding: 0.15rem 0.35rem;
+}
+
+.story-detail__content ::deep pre {
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.story-detail__content ::deep pre code {
+    padding: 0;
+}
+
+.story-detail__content ::deep img {
+    max-width: 100%;
+    height: auto;
+}
+
+.story-detail__content ::deep table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+}
+
+.story-detail__content ::deep th,
+.story-detail__content ::deep td {
+    border: 1px solid #555;
+    padding: 0.5rem 0.75rem;
+}
+
+.story-detail__content ::deep hr {
+    border: 0;
+    border-top: 1px solid #555;
+    margin: 2rem 0;
+}

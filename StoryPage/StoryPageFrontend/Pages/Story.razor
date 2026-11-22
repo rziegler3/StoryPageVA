@@ -1,0 +1,187 @@
+@page "/Story/{Id:long}"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<StoryOverview StoryId="Id" StoryData="CurrentStory" OnReadStory="ShowDetail" />
+
+@if (_showDetail && CurrentStory is { } story)
+{
+    <StoryDetail StoryData="story" />
+}
+
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    private static readonly IReadOnlyDictionary<long, StoryModel> Stories = new Dictionary<long, StoryModel>
+    {
+        [1] = new()
+        {
+            Id = 1,
+            Title = "Die inheränte Unterdrückung der Arbeiterklasse im Kapitalismus",
+            Description = "In Stretton Baskerville verlieren die Dorfbewohner durch gewaltsame Einhegung ihr Land und ihre gemeinsame Lebensgrundlage. Jahrhunderte später werden in Buchenwald Ernst Thälmanns letzte Gedanken von den Folgen des Faschismus und den ungelösten Gegensätzen zwischen Arbeit und Kapital geprägt. In Chile führen wirtschaftliche Sabotage und ein Militärputsch zum Sturz Salvador Allendes. Drei historische Wendepunkte zeigen, wie der Kampf um Eigentum und Profit das Leben der Arbeiter prägt und politische Veränderungen verhindert.",
+            Picture = "images/industrial-smoke-plumes-stockcake.jpg",
+            Text = @"# Stretton Baskerville, 6. Dezember 1494
+
+Der Morgen graute an diesem Tag, wie bereits die vielen
+Jahrhunderte zuvor in Stretton Baskerville. Der Morgenduft roch nach feuchter
+Erde und dem ersten Holzrauch, der sich aus den russgeschwärzten
+Holzschornsteinen des Dorfes drängte. Diese eckigen, mit Lehm bestrichenen
+Flechtwerk-Schlote ragten wie kleine, dunkle Wachtürme aus den moosgrünen Flechten
+der alten Strohdächer. Der eisige Dezembernebel lag dick und feucht über der
+Ansammlung von niedrigen Wohnhäusern, strohgedeckten Ställen und tiefgefrorenen
+Gärten. Sie waren Zeugen der Zeit, die Wohnhäuser teilweise mehrere
+Jahrhunderte alt. Doch an diesem Morgen sollte sich alles ändern, denn aus dem
+dicken Nebel drang ein Geräusch, das nicht zum Rhythmus des Dorfes passte.
+
+Es war das unregelmässige und ohrenbetäubende Meckern und
+Stampfen von tausenden Schafen, und es kam immer näher. Bald war das Dorf mit
+einer Wand aus Tierlauten umgeben, was die bisher noch schlafenden Dorfbewohner
+auf jeden Fall aufweckte. Bald ertönten panische Schreie aus dem Dorf, als die
+Bewohner realisierten, dass ihr gepflanztes Wintergetreide ausserhalb des
+Dorfes nach und nach durch die Herde zertrampelt wurden. Vereinzelte wütende
+Rufe waren auch zu hören, als die Bewohner die Ursache für die Bewegungen der
+Herde bemerkten, denn es waren bewaffnete Knechte und fremde Schäfer, die die
+Tiere mit brutaler Absicht vorwärtspeitschten. Einige der jüngeren Männer
+versuchten, mit Mistgabeln bewaffnet, die Schafe und ihre Treiber
+zurückzutreiben, aber sie wurden schnell wieder von den bewaffneten Knechten
+ins Dorf zurückgedrängt. Durch die Reihen der Schäfer bewegte sich dann eine
+Gruppe von berittenen Leibwächtern mit einer noblen Person in ihrer Mitte.
+Diese begab sich an den Bewohnern vorbei auf den Dorfplatz, wo der noble Mann
+sich in der Mitte positionierte und Aufmerksamkeit verlangte. Er verkündete
+laut: «Ich, Thomas Twyford, tue Euch hiermit kund, dass von nun an dieses Lande
+mir gehört. Zu lange habt ihr die Felder ungenutzt gelassen und mit eurer
+Nichtstuerei verschwendet.» Kaum hatte er den Satz beendet, schrie ihm ein
+Dorfbewohner eine wütende Antwort entgegen: «Dieses Dorf beackert die Felder
+schon seit mehreren Generationen, wie können Sie es w…» Einer der Leibwächter
+bewegte sich schnellen Schrittes auf den Mann zu und schlug ihm mit dem Knauf
+seines Schwertes in den Bauch. Dieser krampfte sich zusammen, als die Luft
+seine Lungen verliess. «Wie gesagt, eure unkoordinierte Pflügerei hat heute ein
+Ende, denn ich übernehme ab jetzt dieses Land», führte Twyford seine Rede fort;
+«Wer bis Ende des Tages nicht das Dorf verlassen hat, wird als illegaler
+Bettler angesehen und dafür bestraft.» Ein wütendes Schreien folgte, und die
+versammelten Dorfbewohner drängten auf Twyford und seine Wächter zu. Dieser gab
+seinen Wächtern ein hastiges Zeichen und begann, sich vom Dorfplatz zu entfernen.
+Die Wut in der Menschenmenge wurde immer zugespitzter, denn ihre Winterernte,
+die Teil ihrer Überlebensgrundlage war, war gerade zerstört worden und jetzt
+behauptete dieser Twyford noch, dass sie hier nicht bleiben dürften.
+Mittlerweile hatte sich Twyford zu seinem restlichen Gesindel am Dorfrand
+gesellt, wo er kurz zurück ins Dorf schaute und dann einen Befehl bellte. Sein
+Gesindel bewegte sich darauf, mit Leitern und Äxten bewaffnet, in verschiedene
+Teile des Dorfs und begannen an den Häusern hinaufzuklettern und mit den Äxten
+die Strohdächer zu zerstören. Sie waren klar besser bewaffnet, in der Überzahl
+und konnten nicht gestoppt werden.
+
+Das Morgengrauen hatte sich inzwischen wie bereits jeden Tag
+seit Jahrhunderten in einen neuen Tag verwandelt, doch obwohl der Morgenduft
+noch frisch war und der Dezembernebel noch dick auf dem Dorf lag, hatte sich Stretton
+Baskerville binnen weniger Stunden mehr verändert als je zuvor. Diese
+Veränderung zerstörte eine jahrhundertealte Lebens- und Wirtschaftsweise, die
+auf Kooperation und verbrieften Gewohnheitsrechten beruhte. Im System der
+offenen Felder und der Allmende war Boden keine Ware, die man beliebig
+einzäunen und allein für den Profit nutzen konnte; er war die gemeinsame
+Lebensgrundlage, auf die jede Familie im Dorf ein Anrecht hatte. Solange die
+Menschen Zugang zu diesem Land hatten, konnten sie sich selbst versorgen und
+waren auf keinen Lohnherren angewiesen. An diesem Tag verloren sie nicht nur
+ihr Zuhause, sondern auch ihre Art des Lebens. Durch die Privatisierung der kollektiven
+Felder hatten die Bewohner nur eine Option: Eine Anstellung bei eben jenen
+Grundherren, die ihre Felder «privatisiert» hatten. Dies markierte offiziell
+ihren gezwungenen Übertritt in die damalig besonders grausame Brutalität des
+Kapitalismus.
+
+Diese parabelhafte Geschichte kennzeichnet den Fakt, dass
+der Kapitalismus nicht die Standard-Wirtschaftsform der Welt ist, sondern dass
+der Kapitalismus vielmehr sich brutal durchgesetzt hat. Wer eine bessere
+Zukunft für alle Menschen will, soll sich deshalb nicht auf den Kapitalismus
+begrenzen, sondern die Suche nach der Lösung auch in anderen Wirtschaftsformen fortsetzen.
+
+# KZ Buchenwald, 18. August 1944
+
+Das Brummen des Motors verstummte und der Ton von sich öffnenden Autotüren erklang. Einige Sekunden passierte nichts, dann öffnete sich auch seine Türe. In der Öffnung erschien ein zivil gekleideter Mann, doch Ernst Thälmann wusste bereits, wer hier vor ihm stand. Schliesslich hatten dieser und zwei andere Männer ihn an diesem Abend aus seiner Zelle im Gefängnis von Bautzen geholt und dann kurzerhand über hundert Kilometer durchs Land verfrachtet. Während der Fahrt hatte er genug Zeit gehabt, um über seine Umstände nachzudenken, und war zum Schluss gekommen, dass es sich bei diesen Leuten um Gestapo-Mitglieder handelte. Wie sonst könnten diese in ziviler Kleidung einen Gefangenen aus einem Gefängnis holen?
+
+Er stieg aus der schwarzen Limousine aus, warf seinen Blick über die Umgebung und hielt inne. Er befand sich vor einem massiven Backstein-Putzbau mit einem einzigen viereckigen Schornstein und einer Eingangstüre in der Mitte. Eine drei Meter hohe Mauer Umrundete das gesamte Gebäude sowie den Innenhof, in dem er sich gerade befand. Am Rande des Innenhofes lagen Kisten herum und es gab mehrere Haufen, die aus Asche- und Kohleresten bestanden. Doch vor dem Gebäude standen in ihren grauen, mit Totenköpfen gezierten Uniformen sechs streng reinschauende SS-Männer. «Das kann nichts Gutes bedeuten», dachte sich Thälmann und erinnerte sich an vergangene Zeiten zurück.
+
+Vor der Zeit der NSDAP war er schliesslich der Vorsitzende der Kommunistischen Partei Deutschlands, und während der Weimarer Republik hatte er mit seiner Partei und anderen linken Organisationen die Gewalt der SA und anderen NSDAP Organisationen abgewehrt und erwidert. Damals hatte er es sich nicht vorstellen können, dass sich diese Ideologie so schnell ausbreiten könnte, aber im Nachhinein wusste er natürlich, wieso. Das Ganze begann in der Novemberrevolution von 1918, nachdem am 15. November die Gewerkschaften der Arbeitnehmer Deutschlands offiziell durch die Arbeitgeber anerkannt wurden. Die Arbeiter erreichten dadurch tatsächlich den Achtstundentag und andere sozialpolitische Fortschritte, allerdings realisierten sie nicht, dass sie trotz der neuen Verhandlungsmöglichkeiten nicht weggekommen waren von dem Interessenkonflikt zwischen dem Arbeitgeber, der Kosten und Löhne minimieren und Profit maximieren will, und den Arbeitnehmern, die gute Löhne und Sicherheit am Arbeitsplatz wollen. Die Medien wahren bereits damals grösstenteils im Besitz der reichen Kapitalisten, die in deren Berichten dadurch meistens negativ von linken Gruppierungen und Parteien berichteten, denn die Kapitalisten wollten ihr Kapital ja nicht den Sozialisten überlassen. Durch die Reparationszahlungen und das stagnierende Wirtschaftswachstum verfiel das Land in mehrere Krisen, und da die Medienberichte der Zeit selbst keine Alternativen anboten, sank die Hoffnung im Land auf Verbesserung. Dann kam die NSDAP, und sie erlangte durch ihr kontroverses Narrativ immer mehr Unterstützung im Land. Warum verbesserte sich im Land nichts, obwohl sie seit Jahren schufteten? «Es müssen wohl die Juden sein», dachte das Land also plötzlich und verfielen so endgültig dem Faschismus.
+
+«Komm, lauf!», wurde ihm ins Ohr gebellt und damit war er endgültig aus seinem Gedanken gerissen. Thälmann setzte sich in Richtung Gebäude in Bewegung. «Wo bringt ihr mich hin?», fragte er. Er bekam keine Antwort, was ihm nicht gefiel, und so blickte er in die Gesichter der SS-Männer. Diese beobachteten ihn mit aufmerksamen, emotionslosen Augen. Sie hatten sich in ein Spalier angeordnet und waren vor der Tür des Gebäudes positioniert. Er lief langsam an ihnen vorbei, zögernd, denn er konnte schon fast ihren Atem im Nacken spüren. Er betrat den Gang und machte noch ein paar Schritte, die letzten seines Lebens. Plötzlich knallte es dreimal nacheinander in einem kurzen Abstand, und er spürte einen unmenschlichen Schmerz in seinem hinteren Torso. Durch die Wucht der Geschosse wurde er von seinen Beinen gerissen und schlug vorwärts auf den Boden auf. Er spürte, wie seine Lunge sich mit Blut füllte und wie es eine Pfütze um seinen liegenden Körper bildete. Er wollte schreien vor Schmerz, aber sein Körper gehorchte ihm nicht mehr. Er spürte vor allem Schmerz, Wut und Panik, doch ein kleiner Teil seines Wesens dachte zurück in die Vergangenheit und war enttäuscht. Enttäuscht darüber, dass sich sein Land, anstatt aufzublühen und im Frieden zu schwelgen, wieder für Krieg entschieden hatte. Enttäuscht von sich selbst, dass er das Land nicht auf einen besseren Pfad leiten konnte.
+
+Es ertönten Schritte, die sich ihm näherten, sie platzierten sich neben seinem ausblutenden Körper. Und mit einem letzten Knall, war er tot.
+
+# Chile, 11. September 1973
+
+Er legte das Telefon weg und wanderte mit seinem Blick über die Gesichter seines loyalen Kabinetts und seiner Familie. Sie hatten sich im Präsidentenpalast Chiles verschanzt, dem letzten Ort, der noch nicht an das Militär gefallen zu sein schien. Salvador Allende war der 29. Präsident Chiles und der erste demokratisch gewählte Marxist Südamerikas. Seine politischen Aktionen in den vergangenen drei Jahren hatten ihm viele einflussreiche politische Gegner geschaffen; nicht nur unter den konservativen Grossgrundbesitzern und Medienbaronen im eigenen Land, sondern vor allem in Washington und den Vorstandsetagen der mächtigen US-Kupferkonzerne, deren Gewinne er zugunsten der chilenischen Bevölkerung verstaatlicht hatte. Die Antwort aus Washington war eine unsichtbare Blockade gewesen: Internationale Banken drehten Chile den Geldhahn zu, Kredite für dringend benötigte Maschinen und Ersatzteile blieben aus, und während die Kupferpreise auf dem Weltmarkt fielen, sanken die Regale in Santiago in eine künstlich befeuerte Leere. Die Bevölkerung Chiles wurde deswegen immer zermürbter und verloren langsam ihren Glauben and die Fähigkeiten ihrer Regierung. Schlussendlich hatte dann an diesem Morgen das Militär Chiles seine Führung aufgekündigt und, unterstützt durch die CIA, mit der gewaltsamen Erstürmung der demokratischen Institutionen begonnen.
+
+Allende hatte gerade eben über das Telefon seine Abschlussrede im Radio beendet, denn er hatte bereits gewusst, dass er der vollen Macht seines Militärs mit seinem leicht bewaffneten Personenschutz niemals standhalten könnte. Er konnte aber auch nicht einfach aufgeben und sich dem Militär ergeben, denn das würde eine gewisse Schwäche seines Charakters und seiner Überzeugung zeigen sowie die Erinnerungen des Volkes an ihn schwärzen. So schaltete er jetzt das mobile Radio, das er in sein Büro mitgenommen hatte, an und schielte durch die verschiedenen Radiofrequenzen. Radio Corporación, Radio Portales, Radio Sargento Candelaria, alle wahren im Rauschen der Frequenzen nicht mehr zu finden. Sie wahren alleheute Morgen ausgeschaltet worden, ihre Sendetürme bombardiert durch Flugzeuge der chilenischen Luftwaffe. Die rechtskonservativen Sender hingegen waren alle noch am Laufen und sendeten militärische Marschmusik, um den kommenden Umsturz zu signalisieren und zu feiern. Zuletzt schaltete er den Radio noch auf den Sender, auf dem er gerade seine Rede gehalten hatte, Radio Magallanes. Im Raum ertönte eine mitreissende Protesthymne namens «No nos moverán», die den Glauben an die Unbesiegbarkeit des Volkes besang. Sie war das Markenzeichen Allendes Bewegung in Chile und war an diesem Tag wohl schon mehrere Male von den mit Allende verbündeten Radiosendern gespielt worden. Eine Minute verging, dann hörte das Musikstück abrupt auf und das Radio ging wieder in das statische Rauschen über. «Die sind wohl auch nicht mehr», murmelte Allende und drehte sich von seinem Schreibtisch weg zum Fenster seines Büros. Draussen sah er wie gewohnt das morgendliche Bild von Santiago: die breite, von Bäumen gesäumte Plaza de la Constitución, die hellen Fassaden der umliegenden Ministerien und den kühlen, grauen Septemberhimmel, unter dem sonst um diese Uhrzeit Hunderte Angestellte und Studenten zur Arbeit eilten. Doch heute war der Platz wie ausgestorben. Erst als sein Blick zu den Zufahrtsstrassen wanderte, sah er sie: Gepanzerte Fahrzeuge und Truppentransporter schlängelten sich aus den Häuserschluchten hervor, glitten über das Pflaster und brachten sich in perfekter, stummer Formation vor dem Palast in Stellung, während bewaffnete Soldaten im Laufschritt hinter den Fahrzeugen ausschwärmten.
+
+Der folgende Austausch von Geschossen war sehr einseitig, denn das Militär war klar in der Überzahl und schwerer bewaffnet. Nach einem verheerenden Luftschlag der Luftwaffe, der den Palast in Brand setzte, rückten die Soldaten immer näher; Fenster zersplitterten, Möbel und Räume wurden zerfetzt. Als die Truppen schliesslich das Gebäude stürmten, befahl Allende seinen verbliebenen Begleitern, die Waffen niederzulegen und sich zu ergeben, um ihr Leben zu retten. Er versprach, als Letzter zu folgen, doch stattdessen blieb er allein zurück. Auf einem Sofa im schwer beschädigten Saal neben seinem Büro hielt er die Kalaschnikow in den Händen, die er persönlich von Fidel Castro geschenkt bekommen hatte. Er hatte gewusst, dass er gegen das Militär niemals eine Chance haben würde, doch er weigerte sich standhaft, sich den Putschisten lebend auszuliefern und als gefangener Präsident vorgeführt zu werden. Er inspizierte also sein Gewehr ein letztes Mal, steckte den Lauf in den Mund und beendete sein Leben.
+
+Der General des chilenischen Militärs, Augusto Pinochet, übernahm an diesem Tag die Führung des Landes, setzte die Verfassung ausser Kraft, löste den Kongress auf und errichtete an der Spitze einer Militärjunta eine blutige Diktatur, die Chile siebzehn Jahre lang im Würgegriff halten sollte. Später stellte sich heraus, dass die CIA, US-Präsident Richard Nixon und einflussreiche amerikanische Kupferunternehmen Hand in Hand mit den chilenischen Generälen gearbeitet hatten, um Allendes Regierung durch wirtschaftliche Sabotage, gezielte Destabilisierung und schliesslich mit offener Waffengewalt zu stürzen.
+
+Es war ein Muster, das sich im Kalten Krieg immer wieder zeigte: Wann immer demokratisch gewählte, linke Politiker die sozialen Verhältnisse zugunsten der einfachen Menschen verändern wollten und damit die privaten Profite mächtiger Konzerne in Gefahr brachten, griffen die USA aus imperialistischem Machtanspruch zur Sabotage. Dabei war ihnen jedes Mittel und jeder Verbündete recht; selbst radikale Oppositionsgruppen und Unternehmerverbände, die durch gehortete Lebensmittel, blockierte Lieferketten und künstliche Engpässe gezielt das Elend der Arbeiter verschärften, nur um die Regierung für genau jene Not verantwortlich zu machen, die sie selbst erzeugt hatten."
+        }
+    };
+
+    private StoryModel? CurrentStory => Stories.TryGetValue(Id, out var story) ? story : null;
+
+    private IJSObjectReference? _scrollModule;
+    private DotNetObjectReference<Story>? _reference;
+    private bool _showDetail;
+    private bool _watchPending;
+
+    protected override void OnParametersSet()
+    {
+        _showDetail = false;
+        _watchPending = true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_watchPending)
+        {
+            _watchPending = false;
+            _scrollModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/story-scroll.js");
+            await _scrollModule.InvokeVoidAsync("stopWatching");
+            if (!string.IsNullOrWhiteSpace(CurrentStory?.Text))
+            {
+                _reference ??= DotNetObjectReference.Create(this);
+                await _scrollModule.InvokeVoidAsync("watch", _reference);
+            }
+        }
+
+    }
+
+    [JSInvokable]
+    public Task ShowDetail()
+    {
+        if (!_showDetail && !string.IsNullOrWhiteSpace(CurrentStory?.Text))
+        {
+            _showDetail = true;
+            return InvokeAsync(StateHasChanged);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    [JSInvokable]
+    public Task HideDetail()
+    {
+        if (_showDetail)
+        {
+            _showDetail = false;
+            return InvokeAsync(StateHasChanged);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_scrollModule is not null)
+        {
+            await _scrollModule.InvokeVoidAsync("stopWatching");
+            await _scrollModule.DisposeAsync();
+        }
+
+        _reference?.Dispose();
+    }
+}

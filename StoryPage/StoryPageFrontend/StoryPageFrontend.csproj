@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="11.0.26" />
+    <PackageReference Include="Markdig" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.22" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.22" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="9.14.0" />
   </ItemGroup>
 
 </Project>

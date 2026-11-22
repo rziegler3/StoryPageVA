@@ -1,0 +1,25 @@
+@using Markdig
+@using Ganss.Xss
+
+<article id="full-story" class="story-detail" aria-label="Full story" tabindex="-1">
+    <div class="story-detail__content">@_content</div>
+</article>
+
+@code {
+    private static readonly MarkdownPipeline Pipeline = new MarkdownPipelineBuilder()
+        .UsePipeTables()
+        .UseEmphasisExtras()
+        .DisableHtml()
+        .Build();
+
+    private readonly HtmlSanitizer _sanitizer = new();
+    private MarkupString _content;
+
+    [Parameter, EditorRequired]
+    public StoryModel StoryData { get; set; } = default!;
+
+    protected override void OnParametersSet()
+    {
+        _content = new MarkupString(_sanitizer.Sanitize(Markdown.ToHtml(StoryData.Text, Pipeline)));
+    }
+}
